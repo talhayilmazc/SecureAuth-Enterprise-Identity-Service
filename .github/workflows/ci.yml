@@ -53,9 +53,12 @@ jobs:
       - name: Run tests
         run: mvn test -B
         env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/secureauth_test
-          SPRING_DATASOURCE_USERNAME: postgres
-          SPRING_DATASOURCE_PASSWORD: postgres
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: 
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+          SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
           SPRING_DATA_REDIS_HOST: localhost
           APP_JWT_SECRET: test-secret-key-for-ci-pipeline-secureauth-talha-yilmaz
           APP_JWT_EXPIRATION: 86400000
@@ -81,4 +84,4 @@ jobs:
           push: false
           tags: secureauth:${{ github.sha }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha,mode=max 
